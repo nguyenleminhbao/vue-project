@@ -1,33 +1,22 @@
 <template>
-  <div class="w-full min-h-screen flex justify-center items-center">
-    <h1 class="text-green-600 font-bold text-3xl" @click="onChange">Change value</h1>
-    <Test :title="a.title" :describe="a.describe" />
-  </div>
+  <component :is="layout">
+    <div class="flex justify-between items-center">
+      <RouterLink to="/" class="font-bold text-green-800">Home page</RouterLink>
+      <RouterLink to="/learn" class="font-bold text-green-800">Learn page</RouterLink>
+      <RouterLink to="/test" class="font-bold text-green-800">Test page</RouterLink>
+    </div>
+    <RouterView />
+  </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import Test from './components/Test.vue'
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { PUBLIC_LAYOUT } from './constants'
 
-export default defineComponent({
-  name: 'App',
-  props: {},
-  components: {
-    Test
-  },
-  setup() {
-    const a = reactive({
-      title: 'Huyen',
-      describe: 'HUyen'
-    })
+const route = useRoute()
 
-    const onChange = () => {
-      a.title = 'Bao'
-      a.describe = 'Bao'
-      console.log('change', a)
-    }
-
-    return { a, onChange }
-  }
+const layout = computed(() => {
+  return route.meta.layout || PUBLIC_LAYOUT
 })
 </script>
