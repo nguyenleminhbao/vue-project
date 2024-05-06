@@ -22,7 +22,7 @@ import { getPost } from '@/service/get'
 import { ref, defineProps } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-defineProps({
+const props = defineProps({
   title: String,
   describe: String
 })

@@ -1,4 +1,25 @@
-export const fontSize = {
+// tailwind.config.js
+// import typography from '@tailwindcss/typography'
+// import forms from '@tailwindcss/forms'
+import aspectRatio from '@tailwindcss/aspect-ratio'
+
+const colors = {
+  primary: '#000000',
+  'secondary-blue': '#377DFF',
+  'secondary-red': '#FF5630',
+  'secondary-green': '#38CB89',
+  'secondary-orange': '#FFAB00',
+
+  'neutral-1': '#FEFEFE',
+  'neutral-2': '#F3F5F7',
+  'neutral-3': '#E8ECEF',
+  'neutral-4': '#6C7275',
+  'neutral-5': '#343839',
+  'neutral-6': '#232627',
+  'neutral-7': '#141718'
+}
+
+const fontSize = {
   'body-1-regular': [
     '26px',
     {
@@ -148,4 +169,21 @@ export const fontSize = {
       fontWeight: '700'
     }
   ]
+}
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: colors,
+      fontSize: fontSize,
+      screens: {
+        default: '1472px',
+        xs: '600px',
+        tablet: '601px'
+      }
+    }
+  },
+  plugins: [aspectRatio]
 }
