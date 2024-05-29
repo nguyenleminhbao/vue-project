@@ -1,34 +1,28 @@
 <template>
-  <h1 class="text-3xl text-green-500">Home page</h1>
-  <button class="text-4xl bg-green-400" @click="updateCount">Click me</button>
-  <div class="w-full min-h-screen flex justify-center items-center">
-    <h1 class="text-green-600 font-bold text-3xl" @click="onChange">Change value</h1>
-    <Test :title="a.title" :describe="a.describe" />
-    <span class="text-secondary-red">hello</span>
-  </div>
+  <Select v-model:value="ingressType" placeholder="Ingress type">
+    <SelectOption :value="RTMP">RTMP</SelectOption>
+    <SelectOption :value="WHIP">WHIP</SelectOption>
+  </Select>
 
-  <RouterLink to="/learn" class="font-bold text-green-800">Learn page</RouterLink>
+  <Button @click="onSubmit">Generate</Button>
+
+  <h1>{{ ingressType }}</h1>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { defineEmits } from 'vue'
+import { IngressInput } from 'livekit-server-sdk'
+import { ref, watchEffect } from 'vue'
+import { Select, SelectOption, Button } from 'ant-design-vue'
+import { createIngress } from '@/service/livestream/post'
 
-const a = reactive({
-  title: 'Huyen',
-  describe: 'HUyen'
-})
-const emit = defineEmits(['update-count'])
+const RTMP = String(IngressInput.RTMP_INPUT)
+const WHIP = String(IngressInput.WHIP_INPUT)
 
-const onChange = () => {
-  a.title = 'Bao'
-  a.describe = 'Bao'
-  console.log('change', a)
-}
+type IngressType = typeof RTMP | typeof WHIP
 
-const updateCount = () => {
-  console.log('emit update count')
-  emit('update-count')
-  console.log(emit)
+const ingressType = ref<IngressType>(RTMP)
+
+const onSubmit = async () => {
+  await createIngress(parseInt(ingressType.value))
 }
 </script>
