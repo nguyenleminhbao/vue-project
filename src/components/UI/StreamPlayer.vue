@@ -28,8 +28,9 @@ const route = useRoute()
 watchEffect(() => {
   console.log(route.query.roomID)
 })
+const roomIdExist = route.query.roomID as string
 
-const roomID = route.query.roomID ?? randomID(5)
+const roomID = roomIdExist ?? randomID(5)
 let role_str = 'Host'
 const role =
   role_str === 'Host'
