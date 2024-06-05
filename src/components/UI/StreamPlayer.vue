@@ -5,9 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch, watchEffect } from 'vue'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 import { Button } from 'ant-design-vue'
+import { useRoute } from 'vue-router'
 
 function randomID(len: number) {
   let result = ''
@@ -22,7 +23,13 @@ function randomID(len: number) {
   return result
 }
 
-const roomID = randomID(5)
+const route = useRoute()
+
+watchEffect(() => {
+  console.log(route.query.roomID)
+})
+
+const roomID = route.query.roomID ?? randomID(5)
 let role_str = 'Host'
 const role =
   role_str === 'Host'
