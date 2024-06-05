@@ -70,9 +70,9 @@ const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
 const zp = ref<ZegoUIKitPrebuilt>()
 
 const live = () => {
-  zp.value = ZegoUIKitPrebuilt.create(kitToken)
+  const zp = ZegoUIKitPrebuilt.create(kitToken)
   // start the call
-  zp.value.joinRoom({
+  zp.joinRoom({
     container: document.getElementById('livestream'),
     scenario: {
       mode: ZegoUIKitPrebuilt.LiveStreaming,
